@@ -1,0 +1,14 @@
+node_modules
+.astro
+dist
+.output
+.vinxi
+.wrangler
+test-results
+package-lock.json
+legacy
+public/scripts
+public/styles/veggify.css
+
+# Vendored Webflow export: tabs and original class names, kept as-is.
+src/pages/admin/style-guide.astro

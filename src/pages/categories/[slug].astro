@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import CategoryList from "@/components/CategoryList.astro";
+import { categories, categoryDescriptions, categorySlug } from "@/config/categories";
+import { getRecipesByCategory } from "@/lib/recipes";
+
+export async function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { slug: categorySlug(category) },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const allRecipes = await getCollection("recipes");
+const recipes = getRecipesByCategory(allRecipes, category);
+const description = categoryDescriptions[category];
+---
+
+<BaseLayout title={category} description={description}>
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns fade-up">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center">
+              <h1 class="heading xxl">{category}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section double-bottom no-top-padding">
+      <div class="container">
+        <CategoryList fadeUp current={category} />
+        <div class="v-dyn-list">
+          <div role="list" class="recipe-card-list v-dyn-items">
+            {recipes.map((recipe) => (
+              <div role="listitem" class="fade-up v-dyn-item">
+                <RecipeCard recipe={recipe} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

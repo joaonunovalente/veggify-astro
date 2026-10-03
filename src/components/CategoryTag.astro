@@ -1,0 +1,39 @@
+---
+import { categorySlug, categoryStyles, type Category } from "@/config/categories";
+
+interface Props {
+  category: Category | string;
+  linked?: boolean;
+  /** Marks the tag of the category page currently being viewed. */
+  current?: boolean;
+}
+
+const { category, linked = true, current = false } = Astro.props;
+const slug = categorySlug(category);
+const style = (categoryStyles as Record<string, { color: string; background: string }>)[
+  category
+] ?? { color: "#333", background: "#eee" };
+const tagStyle = `color:${style.color};background-color:${style.background}`;
+const borderStyle = `border-color:${style.color}`;
+const href = `/categories/${slug}/`;
+---
+
+{linked ? (
+  <a
+    href={href}
+    aria-current={current ? "page" : undefined}
+    class:list={["category-tag-outer v-inline-block", current && "v--current"]}
+  >
+    <div style={tagStyle} class="category-tag">
+      {category}
+    </div>
+    <div style={borderStyle} class="category-tag-border" />
+  </a>
+) : (
+  <div class="category-tag-outer v-inline-block">
+    <div style={tagStyle} class="category-tag">
+      {category}
+    </div>
+    <div style={borderStyle} class="category-tag-border" />
+  </div>
+)}

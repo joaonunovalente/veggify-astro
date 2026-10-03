@@ -1,0 +1,84 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+---
+
+<BaseLayout title="Licenses" description="Veggify licenses.">
+  <SiteHeader />
+  <main class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center">
+              <h1 class="heading xxl">Licenses</h1>
+              <p>
+                All graphical assets in this template are licensed for personal and commercial use.
+                If you&#x27;d like to use a specific asset, please check the license below.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section no-top-padding">
+      <div class="container">
+        <div class="_12-columns space-between feature-row">
+          <div class="column desktop-6 tablet-12">
+            <div class="tall-image-wrapper feature-image">
+              <img
+                src="/images/about-photo.jpg"
+                loading="lazy"
+                sizes="(max-width: 479px) 90vw, (max-width: 767px) 94vw, (max-width: 991px) 92vw, 44vw"
+                srcset="/images/about-photo.jpg 500w, /images/about-photo.jpg 800w, /images/about-photo.jpg 1000w"
+                alt="Cooking in kitchen at stove"
+                class="tall-image"
+              />
+            </div>
+          </div>
+          <div class="column desktop-5 tablet-12">
+            <h2 class="heading xl">Photography</h2>
+            <p>
+              All photography is sourced from Unsplash. The licensing information can be found{" "}
+              <a href="https://unsplash.com/license" target="_blank">
+                here
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section double-bottom">
+      <div class="container">
+        <div class="_12-columns space-between mobile-reverse">
+          <div class="column desktop-5 tablet-12">
+            <h2 class="heading xl">Iconography</h2>
+            <p>
+              All icons are sourced from Phosphor icons by Helena Zhang. The licensing information
+              can be found{" "}
+              <a
+                href="https://github.com/phosphor-icons/phosphor-icons/blob/master/LICENSE"
+                target="_blank"
+              >
+                here
+              </a>
+              .
+            </p>
+          </div>
+          <div class="column desktop-6 tablet-12">
+            <div class="tall-image-wrapper icons">
+              <div class="icon-wrapper">
+                <img src="/icons/icon-cook-time.svg" loading="lazy" alt="" class="icon-licenses" />
+                <img src="/icons/icon-servings.svg" loading="lazy" alt="" class="icon-licenses" />
+                <img src="/icons/icon-prep-time.svg" loading="lazy" alt="" class="icon-licenses" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

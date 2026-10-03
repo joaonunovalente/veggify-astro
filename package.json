@@ -1,0 +1,57 @@
+{
+  "name": "veggify-astro",
+  "description": "Veggify recipe blog template ported to Astro.",
+  "type": "module",
+  "version": "1.0.0",
+  "author": "Kevin Dakin",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joaonunovalente/veggify-astro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joaonunovalente/veggify-astro/issues"
+  },
+  "keywords": [
+    "astro-theme",
+    "astro",
+    "recipes",
+    "food-blog"
+    ],
+  "homepage": "https://veggify-astro.vercel.app/",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "release:check": "npm run check && npm run build && npm run format:check",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "overrides": {
+    "yaml": "^2.8.3"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.1",
+    "@astrojs/mdx": "^7.0.3",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.3",
+    "rehype-slug": "^6.0.0",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/node": "^22.16.5",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^1.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^8.1.5"
+  }
+}

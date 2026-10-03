@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import CategoryTag from "@/components/CategoryTag.astro";
+import { categories, categoryDescriptions } from "@/config/categories";
+import { getCollection } from "astro:content";
+import { getCategoryList } from "@/lib/recipes";
+
+const allRecipes = await getCollection("recipes");
+const list = getCategoryList(allRecipes);
+const byName = new Map(list.map((c) => [c.name, c.count]));
+---
+
+<BaseLayout title="Categories" description="Find the right recipe for the moment.">
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center fade-up">
+              <h1 class="heading xxl">Categories</h1>
+              <p>Find the right recipe for the moment.</p>
+            </div>
+          </div>
+        </div>
+        <div class="category-wrapper v-dyn-list">
+          <div role="list" class="category-list v-dyn-items">
+            {categories.map((cat) => (
+              <div role="listitem" class="category-item v-dyn-item">
+                <CategoryTag category={cat} />
+                <p>
+                  {categoryDescriptions[cat]} ({byName.get(cat) ?? 0})
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

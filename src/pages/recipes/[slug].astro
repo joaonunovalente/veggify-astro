@@ -1,0 +1,230 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import CategoryTag from "@/components/CategoryTag.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import ShareBlock from "@/components/ShareBlock.astro";
+import { about } from "@/config/about";
+import { getRelated, recipeHref, visibleRecipes } from "@/lib/recipes";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection("recipes");
+  return recipes.map((recipe) => ({
+    params: { slug: recipe.id.replace(/\.md$/, "") },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const allRecipes = visibleRecipes(await getCollection("recipes"));
+const related = getRelated(allRecipes, recipe);
+const { Content } = await render(recipe);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  name: recipe.data.title,
+  description: recipe.data.excerpt,
+  image: recipe.data.cover,
+  recipeCategory: recipe.data.category,
+  ...(recipe.data.prepTime ? { prepTime: recipe.data.prepTime } : {}),
+  ...(recipe.data.cookTime ? { cookTime: recipe.data.cookTime } : {}),
+  totalTime: recipe.data.totalTime,
+};
+---
+
+<BaseLayout
+  title={recipe.data.title}
+  description={recipe.data.excerpt}
+  image={recipe.data.cover}
+  type="article"
+  structuredData={structuredData}
+>
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="v-dyn-list">
+              <div role="list" class="v-dyn-items">
+                <div role="listitem" class="category-item v-dyn-item">
+                  <CategoryTag category={recipe.data.category} />
+                </div>
+              </div>
+            </div>
+            <div class="spacer _24"></div>
+            <h1 class="heading xxl">{recipe.data.title}</h1>
+            <p>{recipe.data.excerpt}</p>
+            <div class="button-wrapper">
+              <a href="#recipe" class="button secondary v-button">
+                Jump to recipe
+              </a>
+              <a href="#video" class="button tertiary v-inline-block">
+                <div>Watch video</div>
+                <div class="button-underline"></div>
+                <div class="button-underline-hover"></div>
+              </a>
+            </div>
+          </div>
+          <div class="column desktop-1 tablet-0">
+            <div class="recipe-divider-wrapper">
+              <div class="recipe-info-divider"></div>
+            </div>
+          </div>
+          <div class="column desktop-2 tablet-12">
+            <div class="recipe-info">
+              {recipe.data.prepTime && (
+                <div class="recipe-info-item">
+                  <img src="/icons/icon-prep-time.svg" loading="lazy" alt="" class="recipe-icon" />
+                  <div>
+                    <div class="recipe-info-subhead">Prep</div>
+                    <div class="recipe-time">{recipe.data.prepTime}</div>
+                  </div>
+                </div>
+              )}
+              {recipe.data.cookTime && (
+                <div class="recipe-info-item">
+                  <img src="/icons/icon-cook-time.svg" loading="lazy" alt="" class="recipe-icon" />
+                  <div>
+                    <div class="recipe-info-subhead">Cook</div>
+                    <div class="recipe-time">{recipe.data.cookTime}</div>
+                  </div>
+                </div>
+              )}
+              {recipe.data.servings && (
+                <div class="recipe-info-item">
+                  <img src="/icons/icon-servings.svg" loading="lazy" alt="" class="recipe-icon" />
+                  <div>
+                    <div class="recipe-info-subhead">Serves</div>
+                    <div class="servings-wrapper">
+                      <div class="recipe-time">{recipe.data.servings}</div>
+                      <div class="recipe-time">{recipe.data.servingsUnit ?? "people"}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="recipe-hero-image-wrapper fade-up">
+        <img src={recipe.data.cover} loading="lazy" alt={recipe.data.coverAlt} class="image" />
+      </div>
+    </div>
+
+    <section id="recipe" class="section double-bottom">
+      <div class="container">
+        <ShareBlock
+          url={recipeHref(recipe)}
+          title={recipe.data.title}
+          description={recipe.data.excerpt}
+          image={recipe.data.cover}
+        />
+        <div class="_12-columns align-top">
+          <div class="column desktop-6 tablet-8 mobile-12">
+            <div class="ingredients-card">
+              <h2 class="heading m">Ingredients</h2>
+              <div class="ingredients-list v-richtext">
+                {recipe.data.ingredients.map((section) => (
+                  <>
+                    {section.heading && <h3>{section.heading}</h3>}
+                    <ul role="list">
+                      {section.items.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </>
+                ))}
+              </div>
+            </div>
+            <div class="directions-wrapper">
+              <h2 class="heading m">Directions</h2>
+              <div class="directions-list v-richtext">
+                {recipe.data.directions.map((section) => (
+                  <>
+                    {section.heading && <h3>{section.heading}</h3>}
+                    <ol start="1" role="list">
+                      {section.items.map((step) => (
+                        <li>{step}</li>
+                      ))}
+                    </ol>
+                  </>
+                ))}
+              </div>
+            </div>
+            {recipe.data.video ? (
+              <div
+                id="video"
+                style="padding-top:56.20608899297424%"
+                class="recipe-video v-video v-embed"
+              >
+                <iframe
+                  class="embedly-embed"
+                  src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FViwGpHRSVyE%3Fstart%3D257%26feature%3Doembed%26start%3D257&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DViwGpHRSVyE&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FViwGpHRSVyE%2Fhqdefault.jpg&args=start%3D257&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=youtube"
+                  width="854"
+                  height="480"
+                  scrolling="no"
+                  title="YouTube embed"
+                  frameborder="0"
+                  allow="autoplay; fullscreen"
+                  allowfullscreen="true"
+                />
+              </div>
+            ) : (
+              <div
+                id="video"
+                class="recipe-video v-condition-invisible v-dyn-bind-empty v-video v-embed"
+              />
+            )}
+            <div class="description-wrapper">
+              <div class="description-text v-richtext">
+                <Content />
+              </div>
+            </div>
+          </div>
+          <div class="column desktop-1 tablet-0"></div>
+          <div class="column desktop-3 tablet-4 mobile-12">
+            <div class="recipe-sidebar">
+              <div class="recipe-about-wrapper">
+                <div class="tall-image-wrapper">
+                  <img
+                    src="/images/about-photo.jpg"
+                    loading="lazy"
+                    alt="Cooking in kitchen at stove"
+                    class="tall-image"
+                  />
+                </div>
+                <div class="text-center">
+                  <h3 class="heading s">About me</h3>
+                  <p>{about.intro}</p>
+                </div>
+              </div>
+              <div class="other-recipes-wrapper">
+                <div class="text-center">
+                  <h2 class="heading m">Other recipes</h2>
+                </div>
+                <div class="spacer _8"></div>
+                <div class="v-dyn-list">
+                  <div role="list" class="recipe-card-list vertical v-dyn-items">
+                    {related.map((item) => (
+                      <div role="listitem" class="v-dyn-item">
+                        <RecipeCard recipe={item} variant="small" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import { header, siteConfig } from "@/config/site";
+import { contact } from "@/config/contact";
+import SocialLinks from "@/components/SocialLinks.astro";
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  currentPath === href || (href !== "/" && currentPath.startsWith(href));
+
+// The contact page falls back to a mailto link when the form is disabled, so
+// hide its nav entry to avoid sending visitors to a disabled form.
+const navigation = header.navigation.filter((item) => contact.enabled || item.href !== "/contact/");
+---
+
+<div
+  data-v-id="4fddf891-50ea-b4e5-6f60-35c6d6c43811"
+  data-animation="over-right"
+  data-collapse="medium"
+  data-duration="600"
+  data-easing="ease-out-quart"
+  data-easing2="ease-out-quart"
+  role="banner"
+  class="nav v-nav"
+>
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="nav-left">
+        <a
+          href="/"
+          aria-current={isCurrent("/") ? "page" : undefined}
+          class:list={["brand v-nav-brand", isCurrent("/") && "v--current"]}
+        >
+          <span class="wordmark">{siteConfig.name}</span>
+        </a>
+        <form action="/search/" method="get" class="search-nav v-form">
+          <input
+            class="form-input search-nav v-input"
+            maxlength="256"
+            name="query"
+            placeholder="Search recipes"
+            type="search"
+            id="search"
+            required
+          />
+          <input type="submit" class="search-button v-button" value="Search" />
+        </form>
+      </div>
+      <nav role="navigation" id="primary-navigation" class="nav-menu v-nav-menu">
+        {navigation.map((item) => {
+          const current = isCurrent(item.href);
+          return (
+            <a
+              href={item.href}
+              aria-current={current ? "page" : undefined}
+              class:list={["nav-link v-inline-block", current && "v--current"]}
+            >
+              <div class="nav-link-text">{item.label}</div>
+              <div class="nav-underline" />
+            </a>
+          );
+        })}
+        <SocialLinks />
+      </nav>
+      <div class="menu-overlay"></div>
+      <div
+        class="menu-button v-nav-button"
+        role="button"
+        tabindex="0"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <div data-v-id="4fddf891-50ea-b4e5-6f60-35c6d6c43832" class="hamburger-line"></div>
+        <div data-v-id="4fddf891-50ea-b4e5-6f60-35c6d6c43833" class="hamburger-line middle"></div>
+        <div data-v-id="4fddf891-50ea-b4e5-6f60-35c6d6c43834" class="hamburger-line bottom"></div>
+      </div>
+    </div>
+  </div>
+</div>

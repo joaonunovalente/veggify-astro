@@ -1,0 +1,179 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import CategoryList from "@/components/CategoryList.astro";
+import NewsletterSignup from "@/components/NewsletterSignup.astro";
+import FeaturedIn from "@/components/FeaturedIn.astro";
+import { featuredIn, siteConfig } from "@/config/site";
+import { newsletter } from "@/config/newsletter";
+import { home } from "@/config/home";
+import { getFeatured, getListedRecipes, visibleRecipes } from "@/lib/recipes";
+
+const allRecipes = visibleRecipes(await getCollection("recipes"));
+const featured = getFeatured(allRecipes, 1)[0] ?? allRecipes[0];
+const latest = getListedRecipes(allRecipes).slice(0, 3);
+
+// Whichever block closes the page carries the extra bottom padding, so the
+// spacing holds whether the press-logo row is switched on or off.
+const aboutSectionClass = featuredIn.enabled ? "section" : "section double-bottom";
+---
+
+<BaseLayout>
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container fade-up">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center">
+              <h1 class="heading xxl">{siteConfig.tagline}</h1>
+            </div>
+            <div class="spacer _24"></div>
+            <form action="/search/" method="get" class="search v-form">
+              <input
+                class="form-input search v-input"
+                maxlength="256"
+                name="query"
+                placeholder="Search for a recipe"
+                type="search"
+                id="search"
+                required
+              />
+              <input type="submit" class="search-button v-button" value="Search" />
+            </form>
+          </div>
+        </div>
+        <CategoryList />
+      </div>
+    </section>
+
+    {featured && (
+      <section class="section no-top-padding">
+        <div class="container">
+          <div class="v-dyn-list">
+            <div role="list" class="v-dyn-items">
+              <div role="listitem" class="_12-columns space-between feature-row fade-up v-dyn-item">
+                <div class="column desktop-7 tablet-12">
+                  <a
+                    href={`/recipes/${featured.id.replace(/\.md$/, "")}/`}
+                    class="image-wrapper v-inline-block feature-image"
+                  >
+                    <img
+                      src={featured.data.cover}
+                      loading="lazy"
+                      alt={featured.data.coverAlt}
+                      class="image"
+                    />
+                    <div class="featured-recipe-tag">Featured Recipe</div>
+                  </a>
+                </div>
+                <div class="column desktop-4 tablet-12">
+                  <h2 class="heading xl">{featured.data.title}</h2>
+                  <p>{featured.data.excerpt}</p>
+                  <div class="button-wrapper mobile-full">
+                    <a
+                      href={`/recipes/${featured.id.replace(/\.md$/, "")}/`}
+                      class="button secondary v-button"
+                    >
+                      View recipe
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="container">
+        <div class="heading-wrapper fade-up">
+          <h2 class="heading xl">Latest recipes</h2>
+        </div>
+        <div class="v-dyn-list">
+          <div role="list" class="recipe-card-list v-dyn-items">
+            {latest.map((recipe) => (
+              <div role="listitem" class="fade-up v-dyn-item">
+                <RecipeCard recipe={recipe} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="button-wrapper centered fade-up mobile-full">
+          <a href="/recipes/" class="button secondary v-button">
+            View all recipes
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {newsletter.enabled && newsletter.showInBody && (
+      <section class="section">
+        <div class="container">
+          <div class="_12-columns fade-up">
+            <div class="column desktop-8 tablet-12">
+              <div class="heading-wrapper centered">
+                <h2 class="heading l">{newsletter.bodyHeading}</h2>
+                <p>{newsletter.bodyText}</p>
+              </div>
+              <div class="spacer _24"></div>
+              <NewsletterSignup id="body" />
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {home.about.enabled && (
+      <section class={aboutSectionClass}>
+        <div class="container">
+          <div class="_12-columns space-between mobile-reverse feature-row">
+            <div class="column desktop-5 tablet-12 about-teaser-text">
+              <h2 class="heading xl">{home.about.heading}</h2>
+              {home.about.text.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {(home.about.buttonLabel || home.about.secondaryButtonLabel) && (
+                <div class="button-wrapper">
+                  {home.about.buttonLabel && (
+                    <a href={home.about.buttonHref} class="button v-button">
+                      {home.about.buttonLabel}
+                    </a>
+                  )}
+                  {home.about.secondaryButtonLabel && (
+                    <a href={home.about.secondaryButtonHref} class="button secondary v-button">
+                      {home.about.secondaryButtonLabel}
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+            <div class="column desktop-6 tablet-12 fade-up">
+              <div class="tall-image-wrapper feature-image">
+                <img
+                  src={home.about.image}
+                  loading="lazy"
+                  alt={home.about.imageAlt}
+                  class="tall-image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {featuredIn.enabled && (
+      <section class="section no-top-padding double-bottom">
+        <div class="container">
+          <FeaturedIn />
+        </div>
+      </section>
+    )}
+  </main>
+  <SiteFooter />
+</BaseLayout>

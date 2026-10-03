@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Restricted area"
+  description="This page is password protected. Please contact the site owner for access."
+  noindex
+>
+  <SiteHeader />
+  <div class="utility-page-wrap">
+    <div class="utility-page-content">
+      <h1 class="heading l">Restricted area</h1>
+      <div>This page is not available. Please contact the site owner for access.</div>
+      <div class="button-wrapper centered">
+        <a href="/" class="button v-button">
+          Return home
+        </a>
+      </div>
+    </div>
+  </div>
+  <SiteFooter />
+</BaseLayout>

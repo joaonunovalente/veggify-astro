@@ -1,0 +1,55 @@
+---
+import CategoryTag from "@/components/CategoryTag.astro";
+import { recipeHref, type Recipe } from "@/lib/recipes";
+
+interface Props {
+  recipe: Recipe;
+  /**
+   * - `card`: the standard listing card (image, title, time, category)
+   * - `small`: the compact sidebar card (image, title, category — no time),
+   *   used for "Other recipes" exactly like the legacy template.
+   */
+  variant?: "card" | "small";
+}
+
+const { recipe, variant = "card" } = Astro.props;
+const href = recipeHref(recipe);
+---
+
+{variant === "small" ? (
+  <div class="recipe-card">
+    <a href={href} class="image-wrapper card v-inline-block">
+      <img src={recipe.data.cover} loading="lazy" alt={recipe.data.coverAlt} class="image" />
+    </a>
+    <a href={href} class="recipe-card-text-wrapper small v-inline-block">
+      <h3 class="heading xs">{recipe.data.title}</h3>
+    </a>
+    <div class="recipe-card-category small-card v-dyn-list">
+      <div role="list" class="v-dyn-items">
+        <div role="listitem" class="v-dyn-item">
+          <CategoryTag category={recipe.data.category} linked={false} />
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class="recipe-card">
+    <a href={href} class="image-wrapper card v-inline-block">
+      <img src={recipe.data.cover} loading="lazy" alt={recipe.data.coverAlt} class="image" />
+    </a>
+    <a href={href} class="recipe-card-text-wrapper v-inline-block">
+      <h3 class="heading s">{recipe.data.title}</h3>
+      <div class="recipe-card-time">
+        <img src="/icons/icon-cook-time.svg" loading="lazy" alt="" class="recipe-icon small" />
+        <div class="recipe-time small">{recipe.data.totalTime}</div>
+      </div>
+    </a>
+    <div class="recipe-card-category v-dyn-list">
+      <div role="list" class="v-dyn-items">
+        <div role="listitem" class="v-dyn-item">
+          <CategoryTag category={recipe.data.category} linked={false} />
+        </div>
+      </div>
+    </div>
+  </div>
+)}

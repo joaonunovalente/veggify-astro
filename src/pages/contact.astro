@@ -1,0 +1,142 @@
+---
+/**
+ * Contact page. The heading, intro and provider settings come from the
+ * `contact` export in @/config/contact. Submit handling is driven by one
+ * derived mode, published to the script on the form as `data-submit`:
+ *
+ * - "demo"   - `contact.action` is empty. The script in
+ *              /scripts/veggify.js intercepts the submit and shows the inline
+ *              success state. Nothing is actually sent anywhere.
+ * - "native" - the browser posts to the action and the backend shows its own
+ *              confirmation page. The script leaves the form alone.
+ * - "ajax"   - the script fetches the action and shows the inline success
+ *              panel, so the visitor stays on the page. Needs a backend that
+ *              sends CORS headers.
+ *
+ * When `contact.enabled` is false the form is replaced with a mailto fallback
+ * built from `siteConfig.email`, so the page never shows a form that goes
+ * nowhere without explanation.
+ */
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import { siteConfig } from "@/config/site";
+import { contact } from "@/config/contact";
+
+// An empty action means demo mode regardless of submitMode, so the two config
+// fields can never disagree about what the form will do.
+const submitMode = !contact.action ? "demo" : contact.submitMode;
+---
+
+<BaseLayout title={contact.heading} description={contact.intro}>
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12 fade-up">
+            <div class="text-center">
+              <h1 class="heading xxl">{contact.heading}</h1>
+              <p>{contact.intro}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section no-top-padding double-bottom">
+      <div class="container">
+        <div class="_12-columns space-between mobile-reverse">
+          <div class="column desktop-6 tablet-12 fade-up">
+            <div class="tall-image-wrapper">
+              <img
+                src="/images/contact-photo.webp"
+                loading="lazy"
+                alt="Utensil holder on counter"
+                class="tall-image"
+              />
+            </div>
+          </div>
+          <div class="column desktop-5 tablet-12 fade-up">
+            <div class="v-form">
+              {contact.enabled ? (
+                <form
+                  method={contact.method}
+                  action={contact.action}
+                  data-submit={submitMode}
+                  data-success-url={contact.successUrl || undefined}
+                  class="form"
+                >
+                  {Object.entries(contact.extraFields).map(([name, value]) => (
+                    <input type="hidden" name={name} value={value} />
+                  ))}
+                  <div class="field-block">
+                    <label for="name" class="field-label">
+                      Name
+                    </label>
+                    <input
+                      class="form-input v-input"
+                      maxlength="256"
+                      name={contact.nameFieldName}
+                      placeholder="Enter your name"
+                      type="text"
+                      id="name"
+                    />
+                  </div>
+                  <div class="field-block">
+                    <label for="email" class="field-label">
+                      Email
+                    </label>
+                    <input
+                      class="form-input v-input"
+                      maxlength="256"
+                      name={contact.emailFieldName}
+                      placeholder="Enter your email"
+                      type="email"
+                      id="email"
+                      required
+                    />
+                  </div>
+                  <div class="field-block">
+                    <label for="message" class="field-label">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name={contact.messageFieldName}
+                      maxlength="5000"
+                      placeholder="Enter message here"
+                      required
+                      class="form-input text-area v-input"
+                    ></textarea>
+                  </div>
+                  <input
+                    type="submit"
+                    data-wait="Please wait..."
+                    class="button v-button"
+                    value="Submit"
+                  />
+                  {contact.responseTime && <p class="form-consent">{contact.responseTime}</p>}
+                </form>
+              ) : (
+                <p>
+                  The contact form is currently disabled. Please reach us at{" "}
+                  <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+                </p>
+              )}
+              <div class="form-success v-form-done">
+                <div>Thank you! Your message has been received!</div>
+              </div>
+              <div class="form-error v-form-fail">
+                <div>
+                  Oops! Something went wrong. Please fill in the required fields and try again.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

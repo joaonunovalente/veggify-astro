@@ -1,0 +1,131 @@
+---
+import { getCollection } from "astro:content";
+import SiteFooter from "@/components/SiteFooter.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { visibleRecipes } from "@/lib/recipes";
+
+const allRecipes = visibleRecipes(await getCollection("recipes"));
+
+/**
+ * One pre-rendered card per recipe, held in an inert <template>. The search
+ * script clones whichever ones match instead of assembling cards from a data
+ * payload, so a result is byte-identical to the same recipe on /recipes/ —
+ * image, cook-time icon and category tag included — and the card can never
+ * drift from the listing as RecipeCard changes.
+ *
+ * <template> rather than hidden markup: its contents live in a separate
+ * document fragment, so the browser never renders them and never fetches the
+ * cover images until a clone is actually shown.
+ */
+const searchText = (recipe: (typeof allRecipes)[number]) =>
+  [recipe.data.title, recipe.data.excerpt, recipe.data.category].join(" ").toLowerCase();
+---
+
+<BaseLayout
+  title="Search recipes"
+  description={`Search every recipe published on ${siteConfig.name}.`}
+  noindex
+>
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center fade-up">
+              <h1 class="heading xxl">Search recipes</h1>
+              <form
+                role="search"
+                aria-label="Recipe search"
+                action="/search/"
+                method="get"
+                class="search v-form"
+              >
+                <input
+                  name="query"
+                  type="search"
+                  class="form-input search v-input"
+                  placeholder="Search for a recipe"
+                  autocomplete="off"
+                  data-search-page-input
+                />
+                <input type="submit" class="search-button v-button" value="Search" />
+              </form>
+              <p class="search-summary" data-search-page-summary></p>
+            </div>
+          </div>
+        </div>
+        <div class="v-dyn-list">
+          <div role="list" class="recipe-card-list v-dyn-items" data-search-page-results></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+
+  <div data-search-page-cards hidden>
+    {allRecipes.map((recipe) => (
+      <template data-search={searchText(recipe)}>
+        <div role="listitem" class="fade-up v-dyn-item">
+          <RecipeCard recipe={recipe} />
+        </div>
+      </template>
+    ))}
+  </div>
+
+  <script is:inline>
+    (() => {
+      const input = document.querySelector("[data-search-page-input]");
+      const results = document.querySelector("[data-search-page-results]");
+      const summary = document.querySelector("[data-search-page-summary]");
+      const cards = [...document.querySelectorAll("[data-search-page-cards] template")];
+
+      if (!input || !results || !summary) return;
+
+      // The page-level scroll-reveal in /scripts/veggify.js snapshots the
+      // .fade-up elements once, at load, so cards cloned in after that would
+      // sit at opacity: 0 forever. Observe each render's items here as well;
+      // without IntersectionObserver there is no hidden start state to undo,
+      // so .is-visible is a no-op and the cards simply appear.
+      const reveal =
+        "IntersectionObserver" in window
+          ? new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    reveal.unobserve(entry.target);
+                  }
+                });
+              },
+              { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+            )
+          : null;
+
+      const render = () => {
+        const raw = new URLSearchParams(window.location.search).get("query") || input.value.trim();
+        if (document.activeElement !== input) input.value = raw;
+        const query = raw.toLowerCase();
+        const found = query
+          ? cards.filter((card) => (card.dataset.search || "").includes(query))
+          : [];
+
+        summary.textContent = query
+          ? `${found.length} ${found.length === 1 ? "result" : "results"} for “${raw}”.`
+          : "";
+
+        const items = found.map((card) => card.content.cloneNode(true));
+        results.replaceChildren(...items);
+
+        if (reveal) items.forEach((item) => reveal.observe(item));
+      };
+
+      input.value = new URLSearchParams(window.location.search).get("query") || "";
+      render();
+      input.addEventListener("input", render);
+    })();
+  </script>
+</BaseLayout>

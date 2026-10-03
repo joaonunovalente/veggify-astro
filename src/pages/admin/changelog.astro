@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+---
+
+<BaseLayout title="Changelog" description="Veggify changelog.">
+  <SiteHeader />
+  <main class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center">
+              <h1 class="heading xxl">Changelog</h1>
+              <p>Version history documenting all changes made to template.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section no-top-padding">
+      <div class="container">
+        <div class="_12-columns space-between">
+          <div class="column desktop-12">
+            <div class="cl-item">
+              <div class="cl-heading-wrapper">
+                <h2 class="heading xs">Version 1.0</h2>
+                <p class="cl-date">Released October 2026</p>
+              </div>
+              <div class="cl-text-wrapper">
+                <p>Initial release.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

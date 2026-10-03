@@ -1,0 +1,35 @@
+---
+/**
+ * Bottom of the footer: copyright, developer credit and framework credit.
+ * The developer credit comes from `footer.credits` in @/config/site.
+ */
+
+import { footer, siteConfig } from "@/config/site";
+
+// Resolved when the page is rendered, not when the visitor loads it: this site
+// builds to static HTML, so the year is baked into every file at build time and
+// only rolls over on the next deploy. Rebuild each January to refresh it.
+const copyrightYear = new Date().getFullYear();
+---
+
+<div class="footer-bottom">
+  <div class="container">
+    <div class="footer-bottom-wrapper">
+      <div class="footer-text">
+        © {siteConfig.name} {copyrightYear}. All Rights Reserved.
+      </div>
+      <div class="footer-text">
+        Built by{" "}
+        <a href={footer.credits.developerUrl} target="_blank">
+          {footer.credits.developerName}
+        </a>
+      </div>
+      <div class="footer-text">
+        Built with{" "}
+        <a href="https://astro.build/" target="_blank">
+          Astro
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

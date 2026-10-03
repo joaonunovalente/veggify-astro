@@ -1,0 +1,419 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+---
+
+<BaseLayout title="Style guide" description="Veggify style guide.">
+  <SiteHeader />
+<div class="section white">
+		<div class="container">
+			<div class="text-box s">
+				<h1>Style Guide</h1>
+				<p>The style guide contains important styles and components that are used throughout the template.</p>
+			</div>
+		</div>
+	</div>
+	<div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
+		role="banner" class="sg-navigation sticky v-nav">
+		<div class="container">
+			<nav role="navigation" class="sg-nav-menu v-nav-menu"><a href="style-guide.html#Typography"
+					class="sg-nav-link v-nav-link">Typography</a><a href="style-guide.html#Colors"
+					class="sg-nav-link v-nav-link">Colors</a><a href="style-guide.html#Buttons"
+					class="sg-nav-link v-nav-link">Buttons</a><a href="style-guide.html#Columns"
+					class="sg-nav-link v-nav-link">Columns</a><a href="style-guide.html#Grids"
+					class="sg-nav-link v-nav-link">Grids</a><a href="style-guide.html#Spacers"
+					class="sg-nav-link v-nav-link">Spacers</a><a href="style-guide.html#Forms"
+					class="sg-nav-link v-nav-link">Forms</a></nav>
+		</div>
+	</div>
+	<section id="Typography" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Typography</h2>
+					<p>The primary styles for text sizing used throughout the template.</p>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading XXL</p>
+				<h1 class="heading xxl">This is a heading.</h1>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading XL</p>
+				<h1 class="heading xl">This is a heading.</h1>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading L</p>
+				<h2 class="heading l">This is a heading.</h2>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading M</p>
+				<h3 class="heading m">This is a heading.</h3>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading S</p>
+				<h4 class="heading s">This is a heading.</h4>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading XS</p>
+				<h5 class="heading xs">This is a heading.</h5>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Heading XxS</p>
+				<h6 class="heading xxs">This is a heading.</h6>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Paragraph</p>
+				<p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in
+					eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo
+					diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem
+					vitae risus tristique posuere.</p>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Paragraph Small</p>
+				<p class="paragraph smalll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius
+					enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+					commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc
+					ut sem vitae risus tristique posuere.</p>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Block Quote</p>
+				<blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+					labore et dolore magna aliqua. Ut enim ad minim veniam.</blockquote>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">List</p>
+				<ul role="list">
+					<li>Lorem ipsum dolor sit amet</li>
+					<li>Lorem ipsum dolor sit amet</li>
+					<li>Lorem ipsum dolor sit amet</li>
+				</ul>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">Link</p><a href="style-guide.html#">Text Link</a>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Colors" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Colors</h2>
+					<p>The colors used throughout the website. These classes can be added to any element to change the
+						background color.</p>
+				</div>
+			</div>
+			<div class="_12-columns justify-left">
+				<div class="column desktop-2 mobile-4">
+					<div class="sg-color-block dark"></div>
+				</div>
+				<div class="column desktop-2 mobile-4">
+					<div class="sg-color-block grey"></div>
+				</div>
+				<div class="column desktop-2 mobile-4">
+					<div class="sg-color-block gold"></div>
+				</div>
+				<div class="column desktop-2 mobile-4">
+					<div class="sg-color-block outline off-white"></div>
+				</div>
+				<div class="column desktop-2 mobile-4">
+					<div class="sg-color-block white"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Buttons" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Buttons</h2>
+					<p>The colors used throughout the website. These classes can be added to any element to change the
+						background color.</p>
+				</div>
+			</div>
+			<div class="_12-columns justify-left">
+				<div class="column desktop-4 tablet-6 mobile-12">
+					<div class="sg-block"><a href="style-guide.html#" class="button v-button">Button text</a></div>
+				</div>
+				<div class="column desktop-4 tablet-6 mobile-12">
+					<div class="sg-block"><a href="style-guide.html#" class="button secondary v-button">Button text</a>
+					</div>
+				</div>
+				<div class="column desktop-4 tablet-6 mobile-12">
+					<div class="sg-block"><a href="style-guide.html#" class="button tertiary v-inline-block">
+							<div>Button text</div>
+							<div class="button-underline"></div>
+							<div class="button-underline-hover"></div>
+						</a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Columns" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Columns</h2>
+					<p>Most of the template uses a 12-column layout system. The number of columns a block takes up is
+						denoted by the class name. Changes to tablet and mobile breakpoints can be made with combo
+						classes.</p>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">1</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-1 tablet-1 mobile-1">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">2</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-2 tablet-2 mobile-2">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">3</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-3 tablet-3 mobile-3">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">4</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-4 tablet-4 mobile-4">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">5</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-5 tablet-5 mobile-5">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">6</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-6 tablet-6 mobile-6">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">7</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-7 tablet-7 mobile-7">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">8</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-8 tablet-8 mobile-8">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">9</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-9 tablet-9 mobile-9">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">10</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-10 tablet-10 mobile-10">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">11</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-11 tablet-11 mobile-11">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">12</p>
+				<div class="_12-columns justify-left">
+					<div class="column desktop-12 tablet-12 mobile-12">
+						<div class="sg-column"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Grids" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Grids</h2>
+					<p>Grid columns to be used alongside 12-column layout system.</p>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">4-column Grid</p>
+				<div class="v-layout-grid grid desktop-4 tablet-4">
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">3-column Grid</p>
+				<div class="v-layout-grid grid desktop-3 tablet-3">
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">2-column Grid</p>
+				<div class="v-layout-grid grid desktop-2 tablet-2">
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">2:1 Grid</p>
+				<div class="v-layout-grid _2-1-grid">
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">1:2 Grid</p>
+				<div class="v-layout-grid _1-2-grid">
+					<div class="sg-grid-column"></div>
+					<div class="sg-grid-column"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Spacers" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Spacers</h2>
+					<p>Spacers used to add space between elements without adjusting classes.</p>
+				</div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">8 px</p>
+				<div class="spacer _8 light-gold"></div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">16 px</p>
+				<div class="spacer _16 light-gold"></div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">24 px</p>
+				<div class="spacer _24 light-gold"></div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">32 px</p>
+				<div class="spacer _32 light-gold"></div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">40 px</p>
+				<div class="spacer _40 gold light-gold"></div>
+			</div>
+			<div class="sg-block">
+				<p class="sg-label">48 px</p>
+				<div class="spacer _48 light-gold"></div>
+			</div>
+		</div>
+	</section>
+	<div class="container">
+		<div class="horizontal-rule"></div>
+	</div>
+	<section id="Forms" class="section m">
+		<div class="container">
+			<div class="sg-intro-wrapper">
+				<div class="text-box s">
+					<h2>Forms</h2>
+					<p>Default form field styles for all forms used on the site.</p>
+				</div>
+			</div>
+			<div class="v-form">
+				<form id="wf-form-Style-Guide-Form" name="wf-form-Style-Guide-Form" data-name="Style Guide Form"
+					method="get" class="form" data-vf-page-id="63a595b668385c246ca03b2c"
+					data-vf-element-id="adf15e6e-b259-4d14-af4f-aca0251d12b8">
+					<div class="field-block"><label for="name" class="field-label">Name</label><input
+							class="form-input v-input" maxlength="256" name="name" data-name="Name"
+							placeholder="Enter your name" type="text" id="field" /></div>
+					<div class="field-block"><label for="Select" class="field-label">Category</label><select id="field"
+							name="Category-2" data-name="Category 2" required="" class="form-dropdown v-select">
+							<option value="">Select one...</option>
+							<option value="Frontend Developer">Frontend Developer</option>
+							<option value="Backend Developer">Backend Developer</option>
+							<option value="Mobile Developer">Mobile Developer</option>
+							<option value="Other">Other</option>
+						</select></div>
+					<div class="field-block"><label for="field" class="field-label">Message</label><textarea id="field"
+							name="field" maxlength="5000" data-name="Field" placeholder="Enter message here"
+							class="form-input text-area v-input"></textarea></div><label
+						class="form-radio-button v-radio">
+						<div
+							class="v-form-formradioinput v-form-formradioinput--inputType-custom radio-button v-radio-input">
+						</div><input type="radio" name="Radio" id="radio" data-name="Radio"
+							style="opacity:0;position:absolute;z-index:-1" value="Blue" /><span data-for="radio"
+							class="v-form-label">I&#x27;m a radio button</span>
+					</label><label class="v-checkbox form-checkbox">
+						<div class="v-checkbox-input v-checkbox-input--inputType-custom checkbox"></div><input
+							type="checkbox" name="checkbox" id="checkbox" data-name="Checkbox"
+							style="opacity:0;position:absolute;z-index:-1" /><span data-for="checkbox"
+							class="v-form-label">I&#x27;m a checkbox</span>
+					</label><input type="submit" data-wait="Please wait..." class="button v-button" value="Submit" />
+				</form>
+				<div class="form-success v-form-done">
+					<div>Thank you! Your message has been received!</div>
+				</div>
+				<div class="form-error v-form-fail">
+					<div>Oops! Something went wrong. Please fill in the required fields and try again.</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="footer-bottom-wrapper">
+				<div id="v-node-c5506466-96e2-2e68-287f-b9fcd49c73bf-6ca03b2c" class="footer-text">© Veggify 2022. All
+					Rights Reserved.</div>
+				<div class="footer-text">Built by <a href="https://www.kevindakin.com/" target="_blank">Kevin Dakin</a>
+				</div>
+				<div class="footer-text">Built with <a href="https://astro.build/" target="_blank">Astro</a></div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+/**
+ * Recipes listing pagination (Next / Previous), legacy markup verbatim.
+ */
+
+interface Props {
+  prevHref?: string;
+  nextHref?: string;
+}
+
+const { prevHref, nextHref } = Astro.props;
+---
+
+{(prevHref || nextHref) && (
+  <div role="navigation" aria-label="List" class="v-pagination-wrapper pagination">
+    {prevHref && (
+      <a href={prevHref} aria-label="Previous Page" class="v-pagination-previous pagination-button">
+        <div class="v-inline-block">Previous</div>
+      </a>
+    )}
+    {nextHref && (
+      <a href={nextHref} aria-label="Next Page" class="v-pagination-next pagination-button">
+        <div class="v-inline-block">Next</div>
+      </a>
+    )}
+  </div>
+)}

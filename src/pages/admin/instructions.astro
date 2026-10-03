@@ -1,0 +1,125 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+---
+
+<BaseLayout title="Instructions" description="How to use the Veggify template.">
+  <SiteHeader />
+  <main id="content" class="main-wrapper">
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-6 tablet-12">
+            <div class="text-center">
+              <h1 class="heading xxl">Instructions</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="_12-columns">
+          <div class="column desktop-7 tablet-9 mobile-12">
+            <div class="rich-text v-richtext">
+              <p>
+                This template is made for food bloggers who need a beautiful website to post their
+                recipes on. It is built with Astro: pages are static, content lives in files, and
+                shared blocks live in components under <code>src/components/</code>.<br />
+              </p>
+              <h4>Project structure</h4>
+              <ul role="list">
+                <li>
+                  <code>src/pages/</code> — routes: home, recipes, categories, about, contact and
+                  admin pages.
+                </li>
+                <li>
+                  <code>src/content/recipes/</code> — one Markdown file per recipe (frontmatter +
+                  body).
+                </li>
+                <li>
+                  <code>src/components/</code> — shared blocks: header, footer, cards, tags,
+                  pagination, share row.
+                </li>
+                <li>
+                  <code>src/config/</code> — site settings, categories and tag colours.
+                </li>
+                <li>
+                  <code>src/lib/recipes.ts</code> — listing order, related recipes and helpers.
+                </li>
+                <li>
+                  <code>public/</code> — images, icons, logos, styles and scripts served as-is.
+                </li>
+              </ul>
+              <h4>Adding a recipe</h4>
+              <p>
+                Create a Markdown file in <code>src/content/recipes/</code>. The frontmatter carries
+                the title, excerpt, category, times, servings, cover image and the related-recipe
+                slugs; the body carries Ingredients, Directions and the story sections. Put the
+                cover image in <code>public/images/</code> and reference it as{" "}
+                <code>/images/name.webp</code>.
+              </p>
+              <h4>Categories</h4>
+              <p>
+                Categories live in <code>src/config/categories.ts</code> with their tag colours.
+                Every recipe belongs to exactly one category, and the listing order is defined in
+                <code>src/lib/recipes.ts</code>.
+              </p>
+              <h4>Site settings</h4>
+              <p>
+                Name, tagline and navigation live in <code>src/config/site.ts</code>. Replace{" "}
+                <code>siteUrl</code> with the production URL before publishing. The newsletter and
+                the contact form live in their own files, <code>src/config/newsletter.ts</code> and{" "}
+                <code>src/config/contact.ts</code>. The newsletter can be toggled separately in the
+                homepage body (<code>newsletter.showInBody</code>) and in the footer ({" "}
+                <code>newsletter.showInFooter</code>); <code>newsletter.enabled</code> turns both
+                off at once.
+              </p>
+              <h4>Newsletter</h4>
+              <p>
+                <strong>
+                  The newsletter collects nothing until you set
+                  <code>newsletter.action</code>.
+                </strong>{" "}
+                While it is empty the form is in demo mode: it validates locally and shows a
+                thank-you panel, but no address is sent anywhere. Point <code>action</code> at your
+                provider's embed endpoint to go live, and set <code>submitMode</code> to{" "}
+                <code>"native"</code> or <code>"ajax"</code>. Mailchimp only works with{" "}
+                <code>"native"</code>; Buttondown and MailerLite support both. Provider recipes are
+                in <code>CUSTOMIZATION.md</code>.
+              </p>
+              <p>
+                Headings are in <code>src/config/newsletter.ts</code>; the placeholders, the button
+                label and the success and error messages are in{" "}
+                <code>src/components/NewsletterSignup.astro</code>.
+              </p>
+              <h4>Forms</h4>
+              <p>
+                The contact form collects nothing until you set <code>contact.action</code>: while
+                it is empty the form is in demo mode and only shows the inline success message.
+                Point it at a form backend (Formspree, Basin, Web3Forms) to go live.{" "}
+                <code>contact.enabled</code> hides its nav links and swaps the form for an email
+                link. The rest of <code>src/config/contact.ts</code> follows the newsletter file.
+                Search submits to the built-in <a href="/search/">search page</a>.
+              </p>
+              <h4>Styles and scripts</h4>
+              <p>
+                The visual system is the vendored <code>public/styles/veggify.css</code> plus small
+                helpers in <code>src/styles/global.css</code> (Tailwind). Interactions — mobile
+                menu, scroll reveals, anchor glides, form handling — live in
+                <code>public/scripts/veggify.js</code>.
+              </p>
+              <h4>Publishing</h4>
+              <p>
+                Run <code>npm run check</code>, then <code>npm run build</code> and deploy the
+                <code>dist/</code> folder to any static host.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

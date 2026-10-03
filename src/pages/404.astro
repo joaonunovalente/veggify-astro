@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The page you are looking for doesn't exist or has been moved."
+  noindex
+>
+  <SiteHeader />
+  <div class="utility-page-wrap">
+    <div class="utility-page-content">
+      <h1 class="heading l">Oh no!</h1>
+      <div>The page you are looking for doesn't exist or has been moved.</div>
+      <div class="button-wrapper centered">
+        <a href="/" class="button v-button">
+          Return home
+        </a>
+      </div>
+    </div>
+  </div>
+  <SiteFooter />
+</BaseLayout>

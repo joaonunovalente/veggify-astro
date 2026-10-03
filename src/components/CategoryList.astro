@@ -1,0 +1,28 @@
+---
+import CategoryTag from "@/components/CategoryTag.astro";
+import { categories, type Category } from "@/config/categories";
+
+/**
+ * Category tag row, shared by the home, recipes and category pages.
+ * Content stays inline (legacy markup, verbatim).
+ */
+
+interface Props {
+  /** Highlights the tag of the category page currently being viewed. */
+  current?: Category | string;
+  /** Listing pages animate the row; the home hero does not. */
+  fadeUp?: boolean;
+}
+
+const { current, fadeUp = false } = Astro.props;
+---
+
+<div class:list={["category-wrapper", fadeUp && "fade-up", "v-dyn-list"]}>
+  <div role="list" class="category-list v-dyn-items">
+    {categories.map((cat) => (
+      <div role="listitem" class="category-item v-dyn-item">
+        <CategoryTag category={cat} current={current !== undefined && cat === current} />
+      </div>
+    ))}
+  </div>
+</div>
